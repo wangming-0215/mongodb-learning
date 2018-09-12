@@ -12,9 +12,9 @@ const findAll = async db => {
 
 	// select all documents in the collection
 	// just like `SELECT * from USERS`
-	const result = await users.find({}).toArray();
+	const cursor = await users.find({}).toArray();
 	output('Found the following records');
-	console.log(result);
+	console.log(cursor);
 };
 
 module.exports = findAll;

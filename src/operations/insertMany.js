@@ -17,7 +17,7 @@ const insertUsers = async db => {
 		},
 		{
 			name: 'xiaoming',
-			age: '18',
+			age: 18,
 			hobbies: ['reading books']
 		}
 	];

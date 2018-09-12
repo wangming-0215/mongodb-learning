@@ -1,0 +1,17 @@
+{
+	"name": "mongodb-tutorial",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "node src/app.js",
+		"test": "node src/scripts/run.js"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"bson-ext": "^2.0.1",
+		"chalk": "^2.4.1",
+		"mongodb": "^3.1.4"
+	}
+}

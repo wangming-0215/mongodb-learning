@@ -1,6 +1,6 @@
 const assert = require('assert');
-const output = require('../utils/output');
-const data = require('../utils/data');
+const output = require('../../utils/output');
+const data = require('../../utils/data');
 /**
  * insert multiple users into the collection
  *

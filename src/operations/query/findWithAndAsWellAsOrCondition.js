@@ -1,4 +1,4 @@
-const output = require('../utils/output');
+const output = require('../../utils/output');
 
 /**
  * Specify `AND` as well as `OR` condition

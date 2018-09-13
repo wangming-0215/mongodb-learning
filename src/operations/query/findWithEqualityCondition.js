@@ -1,4 +1,4 @@
-const output = require('../utils/output');
+const output = require('../../utils/output');
 
 /**
  * selects from the `inventory` collection all documents where the `staus` equals 'A'

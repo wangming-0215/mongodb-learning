@@ -3,18 +3,18 @@ const output = require('../utils/output');
 /**
  * specify `OR` condition
  *
- * retrieves all documents in collection where the name equals 'wangming' or age is less than 20
+ * retrieves all documents in collection where the status equals 'A' or qty is less than 30
  * @param {*} db
  */
-const findUsersBySpecifyNameOrAge = async db => {
-	// get the users collection
-	const users = db.collection('users');
+const findWithCondition = async db => {
+	// get the collection
+	const collection = db.collection('inventory');
 
-	// retrieves all documents in collection where name equals 'wangming' or age is less than 20
-	// just like `SELECT * FROM users WHERE name = 'wangming' OR age < 20`
-	const cursor = await users
+	// retrieves all documents in collection where status equals 'A' or qty is less than 30
+	// just like `SELECT * FROM users WHERE status = "A" OR qty < 30`
+	const cursor = await collection
 		.find({
-			$or: [{ name: 'wangming' }, { age: { $lt: 20 } }]
+			$or: [{ status: 'A' }, { qty: { $lt: 30 } }]
 		})
 		.toArray();
 
@@ -22,4 +22,4 @@ const findUsersBySpecifyNameOrAge = async db => {
 	console.log(cursor);
 };
 
-module.exports = findUsersBySpecifyNameOrAge;
+module.exports = findWithCondition;

@@ -3,19 +3,19 @@ const output = require('../utils/output');
 /**
  * Specify `AND` as well as `OR` condition
  *
- * selects all doucments in the collection where the name equals 'wangming' and either age is less than 27 or hobbies contains 'play video games'
+ * selects all doucments in the collection where the status equals "A" and either qty is less than ($lt) 30 or item starts with the character p
  * @param {*} db
  */
-const findUsersBySpecifyNameAndAgeOrHobbies = async db => {
-	// get the users collection
-	const users = db.collection('users');
+const findWithCondition = async db => {
+	// get the inventory collection
+	const collection = db.collection('inventory');
 
-	// selects all documents in the collection where the name equals 'wangming' and either age is less than 27 or hobbies contains 'play video games'
-	// just like `SELECT * FROM users WHERE name = 'wangming' AND (age < 27 or item LIKE 'p%')
-	const cursor = await users
+	// selects all documents in the collection where the status equals "A" and either qty is less than ($lt) 30 or item starts with the character p
+	// just like `SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")`
+	const cursor = await collection
 		.find({
-			name: 'wangming',
-			$or: [{ age: { $lt: 25 } }, { hobbies: 'play video games' }]
+			staus: 'A',
+			$or: [{ qty: { $lt: 30 } }, { item: { $regex: '^p' } }]
 		})
 		.toArray();
 
@@ -23,4 +23,4 @@ const findUsersBySpecifyNameAndAgeOrHobbies = async db => {
 	console.log(cursor);
 };
 
-module.exports = findUsersBySpecifyNameAndAgeOrHobbies;
+module.exports = findWithCondition;

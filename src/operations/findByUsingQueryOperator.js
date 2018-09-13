@@ -5,19 +5,21 @@ const output = require('../utils/output');
  *
  * `{ <field1>: { <operator1>: <value1> } }`
  *
- * retrieves all documents from the `users` collection where age equals either 18 or 21
+ * retrieves all documents from the `inventory` collection where status equals either "A" or "D"
  *
  * @param {*} db
  */
-const findUsersBySpecifyAge = async db => {
-	// get the users collection
-	const users = db.collection('users');
+const findWithCondition = async db => {
+	// get the inventory collection
+	const collection = db.collection('inventory');
 
-	// retrieves all document from the users collection where age equals either 18 or 21
-	// just like: `SELECT * FROM users WHERE age in (18, 21)`
-	const cursor = await users.find({ age: { $in: [18, 21] } }).toArray();
+	// retrieves all documents from the `inventory` collection where status equals either "A" or "D"
+	// just like: `SELECT * FROM inventory WHERE age in ("A", "D")`
+	const cursor = await collection
+		.find({ status: { $in: ['A', 'D'] } })
+		.toArray();
 	output('Found the following records: ');
 	console.log(cursor);
 };
 
-module.exports = findUsersBySpecifyAge;
+module.exports = findWithCondition;

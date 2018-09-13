@@ -1,32 +1,20 @@
 const assert = require('assert');
 const output = require('../utils/output');
+const data = require('../utils/data');
 /**
  * insert multiple users into the collection
  *
  * @param {*} db
  */
-const insertUsers = async db => {
+const insertInventories = async db => {
 	// get the users collection
-	const users = db.collection('users');
-
-	const data = [
-		{
-			name: 'wangming',
-			age: 21,
-			hobbies: ['play video games']
-		},
-		{
-			name: 'xiaoming',
-			age: 18,
-			hobbies: ['reading books']
-		}
-	];
+	const collection = db.collection('inventory');
 
 	// insert multiple users into the collection by using `insertMany` method
-	const result = await users.insertMany(data);
-	assert.equal(result.result.n, 2);
-	assert.equal(result.ops.length, 2);
+	const result = await collection.insertMany(data);
+	assert.equal(result.result.n, data.length);
+	assert.equal(result.ops.length, data.length);
 	output('Inserted 2 users into the collection');
 };
 
-module.exports = insertUsers;
+module.exports = insertInventories;

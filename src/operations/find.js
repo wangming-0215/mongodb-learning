@@ -7,12 +7,12 @@ const output = require('../utils/output');
  * @param {*} db
  */
 const findAll = async db => {
-	// get the users collection
-	const users = db.collection('users');
+	// get the inventory collection
+	const collection = db.collection('inventory');
 
 	// select all documents in the collection
-	// just like `SELECT * from USERS`
-	const cursor = await users.find({}).toArray();
+	// just like `SELECT * From inventory`
+	const cursor = await collection.find({}).toArray();
 	output('Found the following records');
 	console.log(cursor);
 };

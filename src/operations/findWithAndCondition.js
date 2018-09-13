@@ -3,20 +3,20 @@ const output = require('../utils/output');
 /**
  * specify `AND` condition
  *
- * retrieves all documents in the users collection where the name equals 'xiaoming' and age is less than 20
+ * retrieves all documents in the collection where the status equals "A" and qty is less than ($lt) 30
  * @param {*} db
  */
-const findUsersBySpecifyNameAndAge = async db => {
-	// get the users collection
-	const users = db.collection('users');
+const findWithCondition = async db => {
+	// get the inventory collection
+	const collection = db.collection('inventory');
 
-	// retrieves all documents in the users collection where the name equals 'xiaoming' and age is less than 20
-	// Just like: `SELECT * FROM users WHERE name = 'xiaoming' AND age < 20`
-	const cursor = await users
-		.find({ name: 'xiaoming', age: { $lt: 20 } })
+	// retrieves all documents in the collection where the status equals "A" and qty is less than ($lt) 30
+	// Just like: `SELECT * FROM inventory WHERE status = "A" AND qty < 30`
+	const cursor = await collection
+		.find({ status: 'A', qty: { $lt: 30 } })
 		.toArray();
 	output('Found the following records: ');
 	console.log(cursor);
 };
 
-module.exports = findUsersBySpecifyNameAndAge;
+module.exports = findWithCondition;

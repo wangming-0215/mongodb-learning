@@ -1,20 +1,20 @@
 const output = require('../utils/output');
 
 /**
- * selects from the `users` collection all documents where the `name` equals to 'wangming'
+ * selects from the `inventory` collection all documents where the `staus` equals 'A'
  *
  * To specify equality condition, use `<field>:<value>` expressions in the query filter document
  * @param {*} db
  */
-const findUsersBySpecifyName = async db => {
-	// get the users collection
-	const users = db.collection('users');
+const findWithCondition = async db => {
+	// get the inventory collection
+	const collection = db.collection('inventory');
 
-	// selects all documents where the name equals to wangming from the users collection
-	// just like `SELECT * FROM users WHERE name = 'wangming'`
-	const cursor = await users.find({ name: 'wangming' }).toArray();
+	// selects all documents where the status equals "A" from the collection
+	// just like `SELECT * FROM inventory WHERE status = "A"`
+	const cursor = await collection.find({ status: 'A' }).toArray();
 	output('Found the following records: ');
 	console.log(cursor);
 };
 
-module.exports = findUsersBySpecifyName;
+module.exports = findWithCondition;

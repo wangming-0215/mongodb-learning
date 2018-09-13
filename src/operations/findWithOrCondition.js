@@ -11,6 +11,7 @@ const findUsersBySpecifyNameOrAge = async db => {
 	const users = db.collection('users');
 
 	// retrieves all documents in collection where name equals 'wangming' or age is less than 20
+	// just like `SELECT * FROM users WHERE name = 'wangming' OR age < 20`
 	const cursor = await users
 		.find({
 			$or: [{ name: 'wangming' }, { age: { $lt: 20 } }]

@@ -13,8 +13,8 @@ const insertUser = async db => {
 	// insert a single user like { name: 'wangming', age: '18', hobbies: [] }
 	const result = await users.insertOne({
 		name: 'wangming',
-		age: '18',
-		hobbies: []
+		age: 18,
+		hobbies: ['paly video games']
 	});
 
 	assert.equal(result.result.n, 1);

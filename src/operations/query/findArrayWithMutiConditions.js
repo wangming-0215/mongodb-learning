@@ -12,6 +12,7 @@ const findByCondition = async db => {
 
 	// query an array with compound filter conditions on the array elements
 	// queries for documents where the dim_cm array contains elements that in some combination satisfy the query conditions
+	// “或者”的关系 ？
 	const cursor1 = await collection
 		.find({ dim_cm: { $gt: 15, $lt: 20 } })
 		.toArray();

@@ -3,16 +3,18 @@ const output = require('../../utils/output');
 const data = require('../../utils/data');
 
 /**
- * insert a single user
+ * insert a single document
  *
  * @param {*} db
  */
 const insertInventory = async db => {
-	// get the users collection
+	// get the collection
 	const collection = db.collection('inventory');
 
-	// insert a single user like { name: 'wangming', age: '18', hobbies: [] }
-	const result = await collection.insertOne(data[0]);
+	// insert a single document
+	const inventory = data[0];
+	inventory.dim_cm.push(25);
+	const result = await collection.insertOne(inventory);
 
 	assert.equal(result.result.n, 1);
 	assert.equal(result.ops.length, 1);

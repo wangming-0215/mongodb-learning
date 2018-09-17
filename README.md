@@ -126,3 +126,69 @@ MongoClient.connect(
    ```sql
    SELECT * FROM inventory WHERE status = "A" AND (qty < 30 OR item LIKE "p%")
    ```
+
+## Query on Embedded/Nested Document
+
+1. 匹配嵌入/嵌套文档：`{ <field>: <value> }`:
+
+   ```js
+   const cursor = db.collection('inventory').find({
+   	size: { h: 14, w: 21, uom: 'cm' }
+   });
+   ```
+
+   指定的 `<value>` 要与文档完全匹配，才能查询要符合条件的结果，包括文档域的顺序。
+
+2. 查询嵌套字段：使用“点符号”（`.`）， `field.nestedField`:
+
+   ```js
+   const cursor = db.collection('inventory').find({ 'size.uom': 'in' });
+   ```
+
+3. 使用 `query operator` 指定查询条件：`{ <field1>: { <operator1>: <value1> }, ... }`
+
+   ```js
+   const cursor = db.collection('inventory').find({ 'size.h': { $lt: 15 } });
+   ```
+
+4. 指定 `AND` 条件：
+
+   ```js
+   const corsor = db.collection('inventory').find({
+   	'size.h': { $lt: 15 },
+   	'size.uom': 'in',
+   	status: 'D'
+   });
+   ```
+
+## Query an Array
+
+1. 匹配数组： 使用 `{ <field>: <value>}` 来指定查询条件，其中 `<value>` 是个精确匹配数组的值，包括数据中元素的顺序都要保持一致。
+
+   ```js
+   const cursor = db.collection('inventory').find({ tags: ['red', 'black'] });
+   ```
+
+   如果想要查询包含某些元素的数组，而不考虑元素的顺序或者其他元素，可以使用 `$all` 操作符：
+
+   ```js
+   const cursor = db
+   	.collection('inventory')
+   	.find({ tags: { $all: ['red', 'black'] } });
+   ```
+
+2. 查询包含某个元素的数组：如果想要查询至少包含一个指定元素的数组，可以使用 `{ <field>: <value>}`，其中 `<value>` 就是指定的元素：
+
+   ```js
+   // 数组中至少包含一个 'red' 字符串
+   const cursor = db.collection('inventory').find({ tags: 'red' });
+   ```
+
+   使用 `query operator` 指定查询数组中元素的条件：`{ <array field>: { <operator1>: <value1> }, ... }`
+
+   ```js
+   // 'dim_cm' 中至少包含一个大于 25 的元素
+   const cursor = db.collection('inventory').find({ dim_cm: { $gt: 25 } });
+   ```
+
+3. 在数组元素上使用复合过滤条件查询数组：

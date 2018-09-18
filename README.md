@@ -191,4 +191,30 @@ MongoClient.connect(
    const cursor = db.collection('inventory').find({ dim_cm: { $gt: 25 } });
    ```
 
-3. 在数组元素上使用复合过滤条件查询数组：
+3. 在数组元素上使用复合过滤条件查询数组：(这个真没看懂)
+
+   ```js
+   const cursor = db
+   	.collection('inventory')
+   	.find({ dim_cm: { $gt: 15, $lt: 20 } });
+   ```
+
+4. 查询符合多个条件的数组元素：使用 `$elemMatch` 指定查询数组元素的多个条件，以便至少有一个数组元素满足指定的条件
+
+   ```js
+   // 查询大于22且小于30的元素
+   const cursor = db
+   	.collection('inventory')
+   	.find({ dim_cm: { $elemMatch: { $gt: 22, $lt: 30 } } });
+   ```
+
+5. 通过索引位置查询数组元素：通过 _点表示法_ 可以查询特定索引的数组元素
+
+   ```js
+   const cursor = db.collection('inventory').find({ 'dim_cm.1': { $gt: 25 } });
+   ```
+
+6. 通过数组长度查询数组：使用 `$size` 操作符按元素数量查询数组
+   ```js
+   const cursor = db.collection('inventory').find({ tags: { $size: 3 } });
+   ```
